@@ -1,204 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Teen Budgeting Challenge</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <title>Finance Simulator Game</title>
+    <style>
+        body {
+            background-color: #87CEEB; /* Sky blue background */
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #4CAF50;
+        }
+
+        .level {
+            background-color: #fff;
+            border: 2px solid #4CAF50;
+            margin: 20px auto;
+            padding: 15px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .level h2 {
+            color: #4CAF50;
+            font-size: 28px;
+        }
+
+        .level p {
+            font-size: 18px;
+        }
+
+        .level button {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .level button:hover {
+            background-color: #45a049;
+        }
+
+        .level button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
+        .progress span {
+            font-weight: bold;
+        }
+    </style>
 </head>
-
 <body>
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Header Section -->
-        <header>
-            <div class="logo">
-                <img src="logo.png" alt="Teen Budgeting Challenge Logo">
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="#game">Start Game</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
 
-        <!-- Welcome Section -->
-        <section id="home">
-            <div class="welcome-container">
-                <h1>Welcome to Teen Budgeting Challenge!</h1>
-                <p>Learn how to manage your finances through an interactive and fun game. Start your financial journey today!</p>
-                <button id="startButton">Start Game</button>
-            </div>
-        </section>
+    <h1>Finance Simulator Game</h1>
+    <div id="gameContainer">
+        <!-- Level 1 -->
+        <div class="level" id="level1">
+            <h2>Level 1: Introduction to Budgeting</h2>
+            <p>Your objective in this level is to create a simple monthly budget. You will learn how to track income and expenses.</p>
+            <button onclick="nextLevel(1)">Start Level 1</button>
+        </div>
 
-        <!-- Game Start Section -->
-        <section id="game" class="game-section">
-            <div class="game-container">
-                <h2>Let's Begin</h2>
-                <p>Enter your name and start your journey towards mastering budgeting, saving, and investing!</p>
-                <div class="user-login">
-                    <label for="username">Enter Your Username:</label>
-                    <input type="text" id="username" placeholder="Enter your username">
-                    <button onclick="startGame()">Start</button>
-                </div>
-            </div>
-        </section>
+        <!-- Level 2 -->
+        <div class="level" id="level2" style="display:none;">
+            <h2>Level 2: Saving for Short-Term Goals</h2>
+            <p>Learn how to save for short-term goals such as a new gadget, vacation, or emergency fund.</p>
+            <button onclick="nextLevel(2)">Start Level 2</button>
+        </div>
 
-        <!-- Levels & Quizzes Section -->
-        <section id="levels" class="levels-section">
-            <h2>Game Levels</h2>
-            <div id="level-info">
-                <!-- Dynamic level content will appear here -->
-            </div>
-            <div id="quiz-section">
-                <div id="question-container">
-                    <h3>Question will appear here</h3>
-                    <div id="answers">
-                        <!-- Answer options will be dynamically generated here -->
-                    </div>
-                    <button onclick="nextQuestion()">Next Question</button>
-                </div>
-            </div>
-        </section>
+        <!-- Level 3 -->
+        <div class="level" id="level3" style="display:none;">
+            <h2>Level 3: Understanding Credit</h2>
+            <p>In this level, you'll learn about credit scores, how credit cards work, and how to manage credit responsibly.</p>
+            <button onclick="nextLevel(3)">Start Level 3</button>
+        </div>
 
-        <!-- Progress Section -->
-        <section id="progress" class="progress-section">
-            <h3>Progress Tracker</h3>
-            <div id="progress-tracker">
-                <!-- Dynamic progress updates -->
-            </div>
-        </section>
+        <!-- Level 4 -->
+        <div class="level" id="level4" style="display:none;">
+            <h2>Level 4: Investment Basics</h2>
+            <p>Learn about basic investment options like stocks, bonds, and mutual funds, and how to get started with investing.</p>
+            <button onclick="nextLevel(4)">Start Level 4</button>
+        </div>
 
-        <!-- Footer Section -->
-        <footer id="contact">
-            <p>Created with love by [Your Name]. All rights reserved.</p>
-            <div class="socials">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </footer>
+        <!-- Level 5 -->
+        <div class="level" id="level5" style="display:none;">
+            <h2>Level 5: Managing Debt</h2>
+            <p>This level will teach you how to manage debt effectively, including loans, credit card debt, and interest rates.</p>
+            <button onclick="nextLevel(5)">Start Level 5</button>
+        </div>
+
+        <!-- Level 6 -->
+        <div class="level" id="level6" style="display:none;">
+            <h2>Level 6: Building Wealth for the Future</h2>
+            <p>Learn strategies to build long-term wealth, including retirement planning, savings plans, and passive income.</p>
+            <button onclick="endGame()">Finish Game</button>
+        </div>
+
+        <div class="progress">
+            Progress: <span id="currentLevel">Level 1</span> of 6
+        </div>
     </div>
 
     <script>
-        // Game Data
-        const levels = [
-            {
-                level: 1,
-                title: "Budget Basics",
-                description: "Learn the fundamentals of budgeting and saving.",
-                quiz: [
-                    {
-                        question: "What is the difference between needs and wants?",
-                        answers: ["Needs are essential, wants are optional", "Needs and wants are the same"],
-                        correct: 0
-                    },
-                    {
-                        question: "What does 'Income' mean?",
-                        answers: ["Money earned", "Money spent"],
-                        correct: 0
-                    }
-                ]
-            },
-            {
-                level: 2,
-                title: "Emergency Fund Essentials",
-                description: "Build an emergency fund and understand its importance.",
-                quiz: [
-                    {
-                        question: "What is an emergency fund?",
-                        answers: ["A fund for unexpected expenses", "A fund for vacation plans"],
-                        correct: 0
-                    },
-                    {
-                        question: "Why is an emergency fund important?",
-                        answers: ["For unplanned financial needs", "For buying luxury items"],
-                        correct: 0
-                    }
-                ]
-            }
-        ];
-
-        let currentLevel = 0;
-        let currentQuestion = 0;
-        let username = "";
-
-        // Start the Game
-        function startGame() {
-            username = document.getElementById("username").value;
-            if (username) {
-                document.querySelector(".game-section").style.display = 'block';
-                document.querySelector("#home").style.display = 'none';
-                displayLevel();
+        // Function to move to the next level
+        function nextLevel(level) {
+            document.getElementById('level' + level).style.display = 'none'; // Hide current level
+            if (level < 6) {
+                document.getElementById('level' + (level + 1)).style.display = 'block'; // Show next level
+                document.getElementById('currentLevel').innerText = 'Level ' + (level + 1); // Update progress
             }
         }
 
-        // Display Level Information
-        function displayLevel() {
-            const level = levels[currentLevel];
-            const levelInfo = document.getElementById("level-info");
-            levelInfo.innerHTML = `
-                <h3>Level ${level.level}: ${level.title}</h3>
-                <p>${level.description}</p>
-            `;
-            displayQuestion();
-        }
-
-        // Display Question and Answers
-        function displayQuestion() {
-            const level = levels[currentLevel];
-            const question = level.quiz[currentQuestion];
-            const questionElement = document.getElementById("question-container");
-            const answersElement = document.getElementById("answers");
-
-            questionElement.innerHTML = `<h3>${question.question}</h3>`;
-            answersElement.innerHTML = "";
-            question.answers.forEach((answer, index) => {
-                answersElement.innerHTML += `
-                    <div>
-                        <input type="radio" name="answer" value="${index}" id="answer${index}">
-                        <label for="answer${index}">${answer}</label>
-                    </div>
-                `;
-            });
-        }
-
-        // Handle Next Question
-        function nextQuestion() {
-            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
-            if (selectedAnswer) {
-                const level = levels[currentLevel];
-                const correctAnswer = level.quiz[currentQuestion].correct;
-                if (parseInt(selectedAnswer.value) === correctAnswer) {
-                    alert("Correct! Moving to the next question.");
-                } else {
-                    alert("Incorrect! Try again.");
-                }
-
-                currentQuestion++;
-                if (currentQuestion >= level.quiz.length) {
-                    currentLevel++;
-                    currentQuestion = 0;
-                    if (currentLevel < levels.length) {
-                        displayLevel();
-                    } else {
-                        alert("Congratulations! You've completed all levels!");
-                    }
-                } else {
-                    displayQuestion();
-                }
-            } else {
-                alert("Please select an answer.");
-            }
+        // Function to end the game
+        function endGame() {
+            alert('Congratulations! You have completed the Finance Simulator Game.');
+            window.location.reload(); // Reload the game to start again
         }
     </script>
-
 </body>
-
 </html>
