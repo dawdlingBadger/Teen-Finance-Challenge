@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Teen Budgeting Challenge</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</head>
+
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <img src="logo.png" alt="Teen Budgeting Challenge Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#game">Start Game</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Welcome Section -->
+        <section id="home">
+            <div class="welcome-container">
+                <h1>Welcome to Teen Budgeting Challenge!</h1>
+                <p>Learn how to manage your finances through an interactive and fun game. Start your financial journey today!</p>
+                <button id="startButton">Start Game</button>
+            </div>
+        </section>
+
+        <!-- Game Start Section -->
+        <section id="game" class="game-section">
+            <div class="game-container">
+                <h2>Let's Begin</h2>
+                <p>Enter your name and start your journey towards mastering budgeting, saving, and investing!</p>
+                <div class="user-login">
+                    <label for="username">Enter Your Username:</label>
+                    <input type="text" id="username" placeholder="Enter your username">
+                    <button onclick="startGame()">Start</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Levels & Quizzes Section -->
+        <section id="levels" class="levels-section">
+            <h2>Game Levels</h2>
+            <div id="level-info">
+                <!-- Dynamic level content will appear here -->
+            </div>
+            <div id="quiz-section">
+                <div id="question-container">
+                    <h3>Question will appear here</h3>
+                    <div id="answers">
+                        <!-- Answer options will be dynamically generated here -->
+                    </div>
+                    <button onclick="nextQuestion()">Next Question</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progress" class="progress-section">
+            <h3>Progress Tracker</h3>
+            <div id="progress-tracker">
+                <!-- Dynamic progress updates -->
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <footer id="contact">
+            <p>Created with love by [Your Name]. All rights reserved.</p>
+            <div class="socials">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Game Data
+        const levels = [
+            {
+                level: 1,
+                title: "Budget Basics",
+                description: "Learn the fundamentals of budgeting and saving.",
+                quiz: [
+                    {
+                        question: "What is the difference between needs and wants?",
+                        answers: ["Needs are essential, wants are optional", "Needs and wants are the same"],
+                        correct: 0
+                    },
+                    {
+                        question: "What does 'Income' mean?",
+                        answers: ["Money earned", "Money spent"],
+                        correct: 0
+                    }
+                ]
+            },
+            {
+                level: 2,
+                title: "Emergency Fund Essentials",
+                description: "Build an emergency fund and understand its importance.",
+                quiz: [
+                    {
+                        question: "What is an emergency fund?",
+                        answers: ["A fund for unexpected expenses", "A fund for vacation plans"],
+                        correct: 0
+                    },
+                    {
+                        question: "Why is an emergency fund important?",
+                        answers: ["For unplanned financial needs", "For buying luxury items"],
+                        correct: 0
+                    }
+                ]
+            }
+        ];
+
+        let currentLevel = 0;
+        let currentQuestion = 0;
+        let username = "";
+
+        // Start the Game
+        function startGame() {
+            username = document.getElementById("username").value;
+            if (username) {
+                document.querySelector(".game-section").style.display = 'block';
+                document.querySelector("#home").style.display = 'none';
+                displayLevel();
+            }
+        }
+
+        // Display Level Information
+        function displayLevel() {
+            const level = levels[currentLevel];
+            const levelInfo = document.getElementById("level-info");
+            levelInfo.innerHTML = `
+                <h3>Level ${level.level}: ${level.title}</h3>
+                <p>${level.description}</p>
+            `;
+            displayQuestion();
+        }
+
+        // Display Question and Answers
+        function displayQuestion() {
+            const level = levels[currentLevel];
+            const question = level.quiz[currentQuestion];
+            const questionElement = document.getElementById("question-container");
+            const answersElement = document.getElementById("answers");
+
+            questionElement.innerHTML = `<h3>${question.question}</h3>`;
+            answersElement.innerHTML = "";
+            question.answers.forEach((answer, index) => {
+                answersElement.innerHTML += `
+                    <div>
+                        <input type="radio" name="answer" value="${index}" id="answer${index}">
+                        <label for="answer${index}">${answer}</label>
+                    </div>
+                `;
+            });
+        }
+
+        // Handle Next Question
+        function nextQuestion() {
+            const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+            if (selectedAnswer) {
+                const level = levels[currentLevel];
+                const correctAnswer = level.quiz[currentQuestion].correct;
+                if (parseInt(selectedAnswer.value) === correctAnswer) {
+                    alert("Correct! Moving to the next question.");
+                } else {
+                    alert("Incorrect! Try again.");
+                }
+
+                currentQuestion++;
+                if (currentQuestion >= level.quiz.length) {
+                    currentLevel++;
+                    currentQuestion = 0;
+                    if (currentLevel < levels.length) {
+                        displayLevel();
+                    } else {
+                        alert("Congratulations! You've completed all levels!");
+                    }
+                } else {
+                    displayQuestion();
+                }
+            } else {
+                alert("Please select an answer.");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
